@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Models\Movie;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,7 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/create-movie', function(){
+    $route = Movie::create(['title' => 'Star Wars V: The Empire Strikes Back']);
+    return $route;
+});
+
 Route::get('/test-route', function(){
+    return ['Filme 1' => 'Star Wars IV: A New Hope', 'Filme 2' => 'Hellraiser'];
+});
+
+Route::get('/route1', function(){
     return ['Filme 1' => 'Star Wars IV: A New Hope', 'Filme 2' => 'Hellraiser'];
 });
 
