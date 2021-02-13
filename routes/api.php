@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Models\Movie;
+//use App\Models\Movie;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +22,7 @@ use App\Models\Movie;
 });*/
 
 Route::resource('movies', 'MovieController');
+
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

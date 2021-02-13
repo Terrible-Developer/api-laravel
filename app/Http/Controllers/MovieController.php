@@ -53,9 +53,9 @@ class MovieController extends Controller
     public function update(Request $request, $id)
     {
         //update
-        $post = Movie::find($id);
-        $post->update($request->all());
-        return $post;
+        $movie = Movie::find($id);
+        $movie->update($request->all());
+        return $movie;
     }
 
     /**

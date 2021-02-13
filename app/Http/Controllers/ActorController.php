@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Actor;
+
 class ActorController extends Controller
 {
     /**
@@ -13,7 +15,7 @@ class ActorController extends Controller
      */
     public function index()
     {
-        //
+        return Actor::all();
     }
 
     /**
@@ -24,7 +26,7 @@ class ActorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Actor::create($request->all());
     }
 
     /**
@@ -35,7 +37,7 @@ class ActorController extends Controller
      */
     public function show($id)
     {
-        //
+        return Actor::find($id);
     }
 
     /**
@@ -47,7 +49,9 @@ class ActorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $actor = Actor::find($id);
+        $actor->update($request->all());
+        return $post;
     }
 
     /**
@@ -58,6 +62,6 @@ class ActorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return Actor::destroy($id);
     }
 }
