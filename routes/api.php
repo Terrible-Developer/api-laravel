@@ -16,18 +16,12 @@ use App\Models\Movie;
 |
 */
 
-Route::get('/create-movie', function(){
+/*Route::get('/create-movie', function(){
     $route = Movie::create(['title' => 'Star Wars V: The Empire Strikes Back']);
     return $route;
-});
+});*/
 
-Route::get('/test-route', function(){
-    return ['Filme 1' => 'Star Wars IV: A New Hope', 'Filme 2' => 'Hellraiser'];
-});
-
-Route::get('/route1', function(){
-    return ['Filme 1' => 'Star Wars IV: A New Hope', 'Filme 2' => 'Hellraiser'];
-});
+Route::resource('movies', 'MovieController');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
