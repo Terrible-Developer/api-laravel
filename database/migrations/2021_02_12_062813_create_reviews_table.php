@@ -18,8 +18,6 @@ class CreateReviewsTable extends Migration
             $table->foreignId('id_user')->constrained('users');
             $table->foreignId('id_movie')->constrained('movies');
             $table->integer('rating');
-            $table->string('review_title');
-            $table->string('review_content');
             $table->timestamps();
         });
     }

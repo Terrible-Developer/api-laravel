@@ -2,8 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Hash;
 
-//use App\Models\Movie;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\Top10Controller;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,14 +19,41 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*Route::get('/create-movie', function(){
-    $route = Movie::create(['title' => 'Star Wars V: The Empire Strikes Back']);
-    return $route;
-});*/
+/*Rotas padrões automáticas*/
+Route::apiResource('movies', 'MovieController')->middleware('auth');
+Route::apiResource('categories', 'CategoryController')->middleware('auth');
+Route::apiResource('users', 'UserController')->middleware('auth');
+Route::apiResource('actors', 'ActorController')->middleware('auth');
+Route::apiResource('reviews', 'ReviewController')->middleware('auth');
+Route::apiResource('movie-actors', 'MovieActorController')->middleware('auth');
+Route::apiResource('movie-categories', 'MovieCategoryController')->middleware('auth');
 
-Route::resource('movies', 'MovieController');
+/*Rotas Customizadas*/
 
+Route::post('/login', function(){
+    $credentials = request()->only(['login', 'password']);
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    $token = auth('api')->attempt($credentials);
+
+    return $token;
 });
+
+Route::get('/create-user-mock', function(){
+    $user = App\Models\User::create([
+        'login' => 'email1',
+        'password' => Hash::make('password'),
+        'name' => 'Test Name'
+    ]);
+    return $user;
+});
+
+Route::get('/show-top', 'Top10Controller');
+Route::get('/find-movies', 'SearchController');
+
+Route::middleware('auth')->get('/logged-user', function(){
+    return auth()->user();
+});
+
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});

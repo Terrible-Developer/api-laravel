@@ -8,45 +8,27 @@ use App\Models\Review;
 
 class ReviewController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return Review::all();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        return Review::create($request->all());
+        //Verifica se o filme já não foi avaliado pelo usuário da request
+        if(Review::where('id_movie', '=', $request->id_movie, 'AND', 'id_user', '=', $request->id_user)->count() > 0){
+            return 'This movie has already been reviewed!';
+        }
+        else{
+            return Review::create($request->all());
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         return Review::find($id);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $review = Review::find($id);
@@ -54,12 +36,6 @@ class ReviewController extends Controller
         return $review;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         return Review::destroy($id);
