@@ -21,7 +21,7 @@ class SearchController extends Controller
                 ->join('actors', 'actors.id', '=', 'movie_actors.id_actor')
                 ->join('categories', 'categories.id', '=', 'movie_categories.id_category')
                 ->select('movies.title')
-                ;
+                ->distinct();
         if($request->all() == null){
             return $movies->get();
         }

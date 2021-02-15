@@ -25,6 +25,6 @@ class Top10Controller extends Controller
                 echo $review->rating;
             }
         }
-        //echo $reviews;
+        //??
     }
 }

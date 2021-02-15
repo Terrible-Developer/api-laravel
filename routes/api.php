@@ -28,8 +28,8 @@ Route::apiResource('reviews', 'ReviewController')->middleware('auth');
 Route::apiResource('movie-actors', 'MovieActorController')->middleware('auth');
 Route::apiResource('movie-categories', 'MovieCategoryController')->middleware('auth');
 
-/*Rotas Customizadas*/
 
+/*Rotas Customizadas*/
 Route::post('/login', function(){
     $credentials = request()->only(['login', 'password']);
 
@@ -47,13 +47,11 @@ Route::get('/create-user-mock', function(){
     return $user;
 });
 
-Route::get('/show-top', 'Top10Controller');
-Route::get('/find-movies', 'SearchController');
+//Route::get('/show-top', 'Top10Controller'); //Não funcionando;
+//Route::get('/find-movies', 'SearchController');
+Route::middleware('auth')->get('/find-movies', 'SearchController'); //Versão com autenticação
 
+/*Teste de autenticação, aproveitando como rota para pegar as informações do usuário atualmente logado*/
 Route::middleware('auth')->get('/logged-user', function(){
     return auth()->user();
 });
-
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
